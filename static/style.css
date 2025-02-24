@@ -75,7 +75,19 @@ input[type="radio"], input[type="checkbox"] {
     margin-left: auto;
     margin-right: auto;
 }
-
+/* new */
+.stage, .formation, .competence, .langue, .interet {
+    border: 1px dashed #999;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.stage h3, .formation h3, .competence h3, .langue h3, .interet h3 {
+    margin: 0 0 5px;
+}
+fieldset {
+    margin-bottom: 20px;
+}
+/* new */
 fieldset:nth-of-type(2) {
     text-align: center;
 }

@@ -198,7 +198,7 @@ $formData = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
     <form action="formulaire.php" method="post" style="display: inline;">
         <button type="submit">Modifier</button>
     </form>
-    <form action="valider.php" method="post" style="display: inline;">
+    <form action="enregistrer.php" method="post" style="display: inline;">
         <button type="submit">Valider</button>
     </form>
 

@@ -229,9 +229,6 @@ $formData = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
     <form action="enregistrer.php" method="post" style="display: inline;">
         <button type="submit">Valider</button>
     </form>
-    <form action="generate_cv.php" method="post" style="display: inline;">
-        <button type="submit">Generer le cv</button>
-    </form>
 
 </body>
 </html>

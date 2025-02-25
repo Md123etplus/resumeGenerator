@@ -117,9 +117,9 @@ try {
         // Suppression des données en session après enregistrement
         // unset($_SESSION['form_data'], $_SESSION['photo'], $_SESSION['remarque_file']);
 
-        // Redirection après l'enregistrement
-        header("Location: recap.php");
-        exit();
+        // // Redirection après l'enregistrement
+        // header("Location: recap.php");
+        // exit();
     } else {
         echo "Aucune donnée trouvée.";
     }
@@ -128,3 +128,93 @@ try {
 }
 
 ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Génération de CV</title>
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+        }
+        .popup button {
+            margin: 10px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+<button onclick="openPopup()">Générer le CV</button>
+
+<div id="popup-overlay" class="popup-overlay" onclick="closePopup()"></div>
+
+<div id="popup" class="popup">
+    <p>Voulez-vous générer votre CV ?</p>
+    <button onclick="redirectToCV()">Oui</button>
+    <button onclick="closePopup()">Annuler</button>
+</div>
+
+<script>
+    function openPopup() {
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("popup-overlay").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+        document.getElementById("popup-overlay").style.display = "none";
+    }
+
+    function redirectToCV() {
+        window.location.href = "generate_cv.php";
+    }
+</script>
+
+</body>
+</html>

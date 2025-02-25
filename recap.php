@@ -102,6 +102,31 @@ $formData = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
                 <td>Nombre de projets</td>
                 <td><?= htmlspecialchars(isset($formData['nb_projet']) ? $formData['nb_projet'] : '0') ?></td>
             </tr>
+            <?php if (!empty($formData['Titre']) && is_array($formData['Titre'])): ?>
+                <tr>
+                    <td>Projets réalisés</td>
+                    <td>
+                        <ul>
+                            <?php foreach ($formData['Titre'] as $index => $titre): ?>
+                                <li>
+                                    <strong>Titre:</strong> <?= htmlspecialchars($titre) ?><br>
+                                    <strong>Date début:</strong> <?= htmlspecialchars($formData['D_debut'][$index] ?? '') ?><br>
+                                    <strong>Date fin:</strong> <?= htmlspecialchars($formData['D_fin'][$index] ?? '') ?><br>
+                                    <strong>Description:</strong> <?= nl2br(htmlspecialchars($formData['Description'][$index] ?? '')) ?>
+                                </li>
+                                <hr>
+                            <?php endforeach; ?>
+                        </ul>
+                    </td>
+                </tr>
+            <?php else: ?>
+                <tr>
+                    <td>Projets réalisés</td>
+                    <td>Aucun projet renseigné</td>
+                </tr>
+            <?php endif; ?>
+
+
             <tr>
                 <td>Photo</td>
                 <td>

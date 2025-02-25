@@ -131,12 +131,15 @@ $formData = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
                 <td>Photo</td>
                 <td>
                     <?php if(isset($_SESSION['photo'])): ?>
+                        <img src="<?= htmlspecialchars($_SESSION['photo']['path']) ?>" alt="Photo" style="max-width: 100px; max-height: 100px; border-radius: 5px;">
+                        <br>
                         <?= htmlspecialchars($_SESSION['photo']['name']) ?>
                     <?php else: ?>
                         Aucune photo fournie
                     <?php endif; ?>
                 </td>
             </tr>
+
         </table>
     </fieldset>
 
@@ -225,6 +228,9 @@ $formData = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
     </form>
     <form action="enregistrer.php" method="post" style="display: inline;">
         <button type="submit">Valider</button>
+    </form>
+    <form action="generate_cv.php" method="post" style="display: inline;">
+        <button type="submit">Generer le cv</button>
     </form>
 
 </body>

@@ -18,7 +18,7 @@
         <h1><span>Quick </span><span>CV</span><span> & </span><span>Docs</span></h1>
         <div class="container-btns">
             <button class="btn-first b1"  onclick="window.location.href='/formulaire.php';"> CV</button>
-            <button class="btn-first b2"  onclick="window.location.href='/formulaire.php';">formulaire</button>
+            <button class="btn-first b2"  onclick="window.location.href='/emailForm.php';">formulaire</button>
         </div>
     </div>
 

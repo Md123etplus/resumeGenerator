@@ -261,92 +261,75 @@
         var prefilledInterets = <?= json_encode($formData['interets'] ?? []) ?>;
         // var prefilledProjets = <?= json_encode($formData['projets'] ?? []) ?>;    
         var prefilledProjets = <?= json_encode($formData['projets'] ?? []) ?>;
-        console.log("Projets pré-remplis:", prefilledProjets);
-    
+        // console.log("Projets pré-remplis:", prefilledProjets);
         document.addEventListener("DOMContentLoaded", function() {
-            prefilledFormations.forEach(formation => {
-                addFormation(); // Ajoute une formation vide
-
-                // Sélectionne la dernière formation ajoutée
-                var formations = document.querySelectorAll('.formation');
-                var lastFormation = formations[formations.length - 1];
-
-                // Remplit les champs avec les valeurs pré-remplies
-                lastFormation.querySelector('input[name="formation_title[]"]').value = formation.formation_title;
-                lastFormation.querySelector('input[name="formation_institution[]"]').value = formation.formation_institution;
-                lastFormation.querySelector('input[name="formation_start[]"]').value = formation.formation_start;
-                lastFormation.querySelector('input[name="formation_end[]"]').value = formation.formation_end;
-                lastFormation.querySelector('textarea[name="formation_desc[]"]').value = formation.formation_desc;
-            });
-
-
-            prefilledFormations.forEach(formation => addFormation());
-
-            prefilledCompetences.forEach((competence, index) => {
-                addCompetence(); // Ajoute une compétence vide
-
-                // Sélectionne la dernière compétence ajoutée
-                var competences = document.querySelectorAll('.competence');
-                var lastCompetence = competences[competences.length - 1];
-
-                // Remplit les champs avec les valeurs pré-remplies
-                lastCompetence.querySelector('input[name="competence_name[]"]').value = competence.competence_name;
-                lastCompetence.querySelector('select[name="competence_level[]"]').value = competence.competence_level;
-            });
-            prefilledStages.forEach(stage => {
-                addStage(); // Ajoute un stage vide
-
-                // Sélectionne le dernier stage ajouté
-                var stages = document.querySelectorAll('.stage');
-                var lastStage = stages[stages.length - 1];
-
-                // Remplit les champs avec les valeurs pré-remplies
-                lastStage.querySelector('input[name="stage_title[]"]').value = stage.stage_title;
-                lastStage.querySelector('input[name="stage_company[]"]').value = stage.stage_company;
-                lastStage.querySelector('input[name="stage_start[]"]').value = stage.stage_start;
-                lastStage.querySelector('input[name="stage_end[]"]').value = stage.stage_end;
-                lastStage.querySelector('textarea[name="stage_desc[]"]').value = stage.stage_desc;
-            });
-            prefilledProjets.forEach(proj => {
-            addProject(); // Ajoute un projet vide
-            console.log("Projet ajouté dynamiquement");
-
-            var projects = document.querySelectorAll('.project');
-            var lastProject = projects[projects.length - 1];
-
-            if (lastProject) {
-                lastProject.querySelector('input[name="Titre[]"]').value = proj.Titre;
-                lastProject.querySelector('input[name="D_debut[]"]').value = proj.D_debut;
-                lastProject.querySelector('input[name="D_fin[]"]').value = proj.D_fin;
-                lastProject.querySelector('textarea[name="Description[]"]').value = proj.Description;
-
-                console.log("Données du projet insérées:", proj);
-            } else {
-                console.error("Erreur: Aucun projet ajouté au DOM");
+    function addIfNotEmpty(dataArray, addFunction, fillFunction) {
+        dataArray.forEach(data => {
+            if (Object.values(data).some(value => value !== "" && value !== null)) {  
+                addFunction(); // Ajoute un champ uniquement s'il y a des données
+                fillFunction(data);
             }
         });
+    }
 
+    function fillFormation(formation) {
+        var formations = document.querySelectorAll('.formation');
+        var lastFormation = formations[formations.length - 1];
+        lastFormation.querySelector('input[name="formation_title[]"]').value = formation.formation_title;
+        lastFormation.querySelector('input[name="formation_institution[]"]').value = formation.formation_institution;
+        lastFormation.querySelector('input[name="formation_start[]"]').value = formation.formation_start;
+        lastFormation.querySelector('input[name="formation_end[]"]').value = formation.formation_end;
+        lastFormation.querySelector('textarea[name="formation_desc[]"]').value = formation.formation_desc;
+    }
 
-            prefilledLangues.forEach(langue => {
-                addLangue(); // Ajoute une langue vide
+    function fillCompetence(competence) {
+        var competences = document.querySelectorAll('.competence');
+        var lastCompetence = competences[competences.length - 1];
+        lastCompetence.querySelector('input[name="competence_name[]"]').value = competence.competence_name;
+        lastCompetence.querySelector('select[name="competence_level[]"]').value = competence.competence_level;
+    }
 
-                var langues = document.querySelectorAll('.langue');
-                var lastLangue = langues[langues.length - 1];
+    function fillStage(stage) {
+        var stages = document.querySelectorAll('.stage');
+        var lastStage = stages[stages.length - 1];
+        lastStage.querySelector('input[name="stage_title[]"]').value = stage.stage_title;
+        lastStage.querySelector('input[name="stage_company[]"]').value = stage.stage_company;
+        lastStage.querySelector('input[name="stage_start[]"]').value = stage.stage_start;
+        lastStage.querySelector('input[name="stage_end[]"]').value = stage.stage_end;
+        lastStage.querySelector('textarea[name="stage_desc[]"]').value = stage.stage_desc;
+    }
 
-                lastLangue.querySelector('input[name="langue[]"]').value = langue.langue;
-                lastLangue.querySelector('select[name="niveau[]"]').value = langue.niveau;
-            });
+    function fillProject(proj) {
+        var projects = document.querySelectorAll('.project');
+        var lastProject = projects[projects.length - 1];
+        lastProject.querySelector('input[name="Titre[]"]').value = proj.Titre;
+        lastProject.querySelector('input[name="D_debut[]"]').value = proj.D_debut;
+        lastProject.querySelector('input[name="D_fin[]"]').value = proj.D_fin;
+        lastProject.querySelector('textarea[name="Description[]"]').value = proj.Description;
+    }
 
-            prefilledInterets.forEach(interet => {
-                addInteret(); // Ajoute un centre d'intérêt vide
+    function fillLangue(langue) {
+        var langues = document.querySelectorAll('.langue');
+        var lastLangue = langues[langues.length - 1];
+        lastLangue.querySelector('input[name="langue[]"]').value = langue.langue;
+        lastLangue.querySelector('select[name="niveau[]"]').value = langue.niveau;
+    }
 
-                var interets = document.querySelectorAll('.interet');
-                var lastInteret = interets[interets.length - 1];
+    function fillInteret(interet) {
+        var interets = document.querySelectorAll('.interet');
+        var lastInteret = interets[interets.length - 1];
+        lastInteret.querySelector('select[name="type_interet[]"]').value = interet.type_interet;
+    }
 
-                lastInteret.querySelector('select[name="type_interet[]"]').value = interet.type_interet;
-            });
+    // Ajouter les champs uniquement si les données ne sont pas vides
+    addIfNotEmpty(prefilledFormations, addFormation, fillFormation);
+    addIfNotEmpty(prefilledCompetences, addCompetence, fillCompetence);
+    addIfNotEmpty(prefilledStages, addStage, fillStage);
+    addIfNotEmpty(prefilledProjets, addProject, fillProject);
+    addIfNotEmpty(prefilledLangues, addLangue, fillLangue);
+    addIfNotEmpty(prefilledInterets, addInteret, fillInteret);
+});
 
-        });
         
 
     </script>

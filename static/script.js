@@ -148,9 +148,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // --- Langues (code existant) ---
-        addLangue();
-        // --- Centres d'Intérêt (code existant) ---
-        addInteret();
+        // addLangue();
+        // // --- Centres d'Intérêt (code existant) ---
+        // addInteret();
         
     });
 

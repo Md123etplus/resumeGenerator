@@ -21,13 +21,13 @@ try {
 
         // Exécution de la requête
         $stmt->execute([
-            ':nom' => $formData['Nom'] ?? '',
-            ':prenom' => $formData['Prenom'] ?? '',
-            ':email' => $formData['Email'] ?? '',
-            ':age' => $formData['Age'] ?? '',
-            ':tel' => $formData['Tel'] ?? '',
-            ':filiere' => $formData['Filiere'] ?? '',
-            ':annee' => $formData['Annee'] ?? '',
+            ':nom' => $formData['nom'] ?? '',
+            ':prenom' => $formData['prenom'] ?? '',
+            ':email' => $formData['email'] ?? '',
+            ':age' => $formData['age'] ?? 0,
+            ':tel' => $formData['tel'] ?? '',
+            ':filiere' => $formData['filiere'] ?? '',
+            ':annee' => $formData['annee'] ?? '',
             ':nb_projet' => $formData['nb_projet'] ?? 0,
             ':photo' => $photo,
             ':remarque_file' => $remarqueFile,
@@ -37,15 +37,31 @@ try {
         $userId = $pdo->lastInsertId(); // Récupération de l'ID de l'utilisateur
 
         // Insertion des modules suivis
-        if (isset($formData['Module']) && is_array($formData['Module'])) {
+        if (isset($formData['module']) && is_array($formData['module'])) {
             $stmtModule = $pdo->prepare("INSERT INTO user_modules (user_id, module_name) VALUES (:user_id, :module_name)");
-            foreach ($formData['Module'] as $module) {
+            foreach ($formData['module'] as $module) {
                 $stmtModule->execute([
                     ':user_id' => $userId,
                     ':module_name' => $module
                 ]);
             }
         }
+
+        // Insertion des projets réalisés
+        if (isset($formData['Titre']) && is_array($formData['Titre'])) {
+            $stmtProjet = $pdo->prepare("INSERT INTO user_projects (user_id, title, start_date, end_date, description) 
+                                        VALUES (:user_id, :title, :start_date, :end_date, :description)");
+            foreach ($formData['Titre'] as $index => $titre) {
+                $stmtProjet->execute([
+                    ':user_id' => $userId,
+                    ':title' => $titre,
+                    ':start_date' => $formData['D_debut'][$index] ?? '',
+                    ':end_date' => $formData['D_fin'][$index] ?? '',
+                    ':description' => $formData['Description'][$index] ?? ''
+                ]);
+            }
+        }
+
 
         // Insertion des stages
         if (isset($formData['stage_title']) && is_array($formData['stage_title'])) {

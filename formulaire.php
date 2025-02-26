@@ -25,23 +25,23 @@
                     <legend style="text-align: center;">Noms & Coordonnées</legend>
                     <span>
                         <label for="nom">Nom:</label><br>
-                        <input type="text" id="nom" name="Nom" value="<?= isset($formData['Nom']) ? htmlspecialchars($formData['Nom']) : '' ?>">
+                        <input type="text" id="nom" name="nom" value="<?= isset($formData['nom']) ? htmlspecialchars($formData['nom']) : '' ?>">
                     </span>
                     <span>
                         <label for="prenom">Prénom:</label><br>
-                        <input type="text" id="prenom" name="Prenom" value="<?= isset($formData['Prenom']) ? htmlspecialchars($formData['Prenom']) : '' ?>">
+                        <input type="text" id="prenom" name="prenom" value="<?= isset($formData['prenom']) ? htmlspecialchars($formData['prenom']) : '' ?>">
                     </span>
                     <span>
                         <label for="age">Âge:</label><br>
-                        <input type="number" id="age" name="Age" value="<?= isset($formData['Age']) ? htmlspecialchars($formData['Age']) : '' ?>">
+                        <input type="number" id="age" name="age" value="<?= isset($formData['age']) ? htmlspecialchars($formData['age']) : '' ?>">
                     </span>
                     <span>
                         <label for="tel">Téléphone:</label><br>
-                        <input type="tel" id="tel" name="Tel" value="<?= isset($formData['Tel']) ? htmlspecialchars($formData['Tel']) : '' ?>">
+                        <input type="tel" id="tel" name="tel" value="<?= isset($formData['tel']) ? htmlspecialchars($formData['tel']) : '' ?>">
                     </span>
                     <span>
                         <label for="email">Email:</label><br>
-                        <input type="email" id="email" name="Email" value="<?= isset($formData['Email']) ? htmlspecialchars($formData['Email']) : '' ?>">
+                        <input type="email" id="email" name="email" value="<?= isset($formData['email']) ? htmlspecialchars($formData['email']) : '' ?>">
                     </span>
                 </fieldset>
 
@@ -58,40 +58,40 @@
                         <h4>Vous êtes en:</h4>
                         <span style="border-left: 1px solid black;">
                             <label for="2AP">2AP:</label>
-                            <input type="radio" name="Filiere" id="2AP" value="2AP" <?= isset($formData['Filiere']) && $formData['Filiere'] === '2AP' ? 'checked' : '' ?>>
+                            <input type="radio" name="filiere" id="2AP" value="2AP" <?= isset($formData['filiere']) && $formData['filiere'] === '2AP' ? 'checked' : '' ?>>
                         </span>
                         <span>
                             <label for="GSTR">GSTR:</label>
-                            <input type="radio" name="Filiere" id="GSTR" value="GSTR" <?= isset($formData['Filiere']) && $formData['Filiere'] === 'GSTR' ? 'checked' : '' ?>>
+                            <input type="radio" name="filiere" id="GSTR" value="GSTR" <?= isset($formData['filiere']) && $formData['filiere'] === 'GSTR' ? 'checked' : '' ?>>
                         </span>
                         <span>
                             <label for="GI">GI:</label>
-                            <input type="radio" name="Filiere" id="GI" value="GI" <?= isset($formData['Filiere']) && $formData['Filiere'] === 'GI' ? 'checked' : '' ?>>
+                            <input type="radio" name="filiere" id="GI" value="GI" <?= isset($formData['filiere']) && $formData['filiere'] === 'GI' ? 'checked' : '' ?>>
                         </span>
                         <span>
                             <label for="SCM">SCM:</label>
-                            <input type="radio" name="Filiere" id="SCM" value="SCM" <?= isset($formData['Filiere']) && $formData['Filiere'] === 'SCM' ? 'checked' : '' ?>>
+                            <input type="radio" name="filiere" id="SCM" value="SCM" <?= isset($formData['filiere']) && $formData['filiere'] === 'SCM' ? 'checked' : '' ?>>
                         </span>
                         <span>
                             <label for="GC">GC:</label>
-                            <input type="radio" name="Filiere" id="GC" value="GC" <?= isset($formData['Filiere']) && $formData['Filiere'] === 'GC' ? 'checked' : '' ?>>
+                            <input type="radio" name="filiere" id="GC" value="GC" <?= isset($formData['filiere']) && $formData['filiere'] === 'GC' ? 'checked' : '' ?>>
                         </span>
                         <span>
                             <label for="MS">MS:</label>
-                            <input type="radio" name="Filiere" id="MS" value="MS" <?= isset($formData['Filiere']) && $formData['Filiere'] === 'MS' ? 'checked' : '' ?>>
+                            <input type="radio" name="filiere" id="MS" value="MS" <?= isset($formData['filiere']) && $formData['filiere'] === 'MS' ? 'checked' : '' ?>>
                         </span>
                         <hr>
                         <span style="border-left: 1px solid black;">
                             <label for="1er_annee">1er année:</label>
-                            <input type="radio" name="Annee" id="1er_annee" value="1er annee" <?= isset($formData['Annee']) && $formData['Annee'] === '1er annee' ? 'checked' : '' ?>>
+                            <input type="radio" name="annee" id="1er_annee" value="1er annee" <?= isset($formData['annee']) && $formData['annee'] === '1er annee' ? 'checked' : '' ?>>
                         </span>
                         <span>
                             <label for="2eme_annee">2ème année:</label>
-                            <input type="radio" name="Annee" id="2eme_annee" value="2eme annee" <?= isset($formData['Annee']) && $formData['Annee'] === '2eme annee' ? 'checked' : '' ?>>
+                            <input type="radio" name="annee" id="2eme_annee" value="2eme annee" <?= isset($formData['annee']) && $formData['annee'] === '2eme annee' ? 'checked' : '' ?>>
                         </span>
                         <span>
                             <label for="3eme_annee">3ème année:</label>
-                            <input type="radio" name="Annee" id="3eme_annee" value="3eme annee" <?= isset($formData['Annee']) && $formData['Annee'] === '3eme annee' ? 'checked' : '' ?>>
+                            <input type="radio" name="annee" id="3eme_annee" value="3eme annee" <?= isset($formData['annee']) && $formData['annee'] === '3eme annee' ? 'checked' : '' ?>>
                         </span>
                         <hr>
                         <h4>Modules suivis cette année :</h4>
@@ -100,7 +100,7 @@
                         foreach ($modules as $module) : ?>
                             <span>
                                 <label for="<?= $module ?>"><?= $module ?>:</label>
-                                <input type="checkbox" name="Module[]" id="<?= $module ?>" value="<?= $module ?>" <?= isset($formData['Module']) && in_array($module, $formData['Module']) ? 'checked' : '' ?>>
+                                <input type="checkbox" name="module[]" id="<?= $module ?>" value="<?= $module ?>" <?= isset($formData['module']) && in_array($module, $formData['module']) ? 'checked' : '' ?>>
                             </span>
                         <?php endforeach; ?>
                     </div>

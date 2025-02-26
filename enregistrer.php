@@ -12,8 +12,21 @@ try {
 
         // Préparation de l'insertion des données
         $stmt = $pdo->prepare("INSERT INTO users 
-            (nom, prenom, email, age, tel, filiere, annee, nb_projet, photo, remarque_file, remarque) 
-            VALUES (:nom, :prenom, :email, :age, :tel, :filiere, :annee, :nb_projet, :photo, :remarque_file, :remarque)");
+            (nom, prenom, email,apropos, age, tel, filiere, annee, nb_projet, photo, remarque_file, remarque) 
+            VALUES (:nom, :prenom, :email,:apropos ,:age, :tel, :filiere, :annee, :nb_projet, :photo, :remarque_file, :remarque) 
+            ON DUPLICATE KEY UPDATE 
+            nom = VALUES(nom), 
+            apropos = VALUES(apropos),
+            prenom = VALUES(prenom), 
+            age = VALUES(age), 
+            tel = VALUES(tel), 
+            filiere = VALUES(filiere), 
+            annee = VALUES(annee), 
+            nb_projet = VALUES(nb_projet), 
+            photo = VALUES(photo), 
+            remarque_file = VALUES(remarque_file), 
+            remarque = VALUES(remarque)");
+
 
         // Variables des fichiers
         $photo = isset($_SESSION['photo']) ? $_SESSION['photo']['path'] : null;
@@ -24,6 +37,7 @@ try {
             ':nom' => $formData['nom'] ?? '',
             ':prenom' => $formData['prenom'] ?? '',
             ':email' => $formData['email'] ?? '',
+            ':apropos' => $formData['apropos'] ?? '',
             ':age' => $formData['age'] ?? 0,
             ':tel' => $formData['tel'] ?? '',
             ':filiere' => $formData['filiere'] ?? '',
@@ -37,14 +51,19 @@ try {
         $userId = $pdo->lastInsertId(); // Récupération de l'ID de l'utilisateur
 
         // Insertion des modules suivis
+    
         if (isset($formData['module']) && is_array($formData['module'])) {
-            $stmtModule = $pdo->prepare("INSERT INTO user_modules (user_id, module_name) VALUES (:user_id, :module_name)");
+        try {
+            $stmtModule = $pdo->prepare("INSERT INTO user_modules (user_id, module_name) VALUES (:user_id, :module_name) ON DUPLICATE KEY UPDATE module_name = VALUES(module_name)");
             foreach ($formData['module'] as $module) {
                 $stmtModule->execute([
                     ':user_id' => $userId,
                     ':module_name' => $module
                 ]);
             }
+        } catch (PDOException $e) {
+            error_log("SQL Error: " . $e->getMessage());
+        }
         }
         //insertion de apropos
         // if (isset($formData['apropos']) && is_array($formData['apropos'])) {
@@ -58,6 +77,7 @@ try {
         // }
         // Insertion des projets réalisés
         if (isset($formData['Titre']) && is_array($formData['Titre'])) {
+            try{
             $stmtProjet = $pdo->prepare("INSERT INTO user_projects (user_id, title, start_date, end_date, description) 
                                         VALUES (:user_id, :title, :start_date, :end_date, :description)");
             foreach ($formData['Titre'] as $index => $titre) {
@@ -69,11 +89,15 @@ try {
                     ':description' => $formData['Description'][$index] ?? ''
                 ]);
             }
+            } catch (PDOException $e) {
+                error_log("SQL Error: " . $e->getMessage());
+            }
         }
 
 
         // Insertion des stages
         if (isset($formData['stage_title']) && is_array($formData['stage_title'])) {
+            try{
             $stmtStage = $pdo->prepare("INSERT INTO user_stages (user_id, title, company, start_date, end_date, description) 
                                         VALUES (:user_id, :title, :company, :start_date, :end_date, :description)");
             foreach ($formData['stage_title'] as $index => $title) {
@@ -86,10 +110,14 @@ try {
                     ':description' => $formData['stage_desc'][$index] ?? ''
                 ]);
             }
+            } catch (PDOException $e) {
+                error_log("SQL Error: " . $e->getMessage());
+            }
         }
 
         // Insertion des formations
         if (isset($formData['formation_title']) && is_array($formData['formation_title'])) {
+            try{
             $stmtFormation = $pdo->prepare("INSERT INTO user_formations (user_id, title, institution, start_date, end_date, description) 
                                             VALUES (:user_id, :title, :institution, :start_date, :end_date, :description)");
             foreach ($formData['formation_title'] as $index => $title) {
@@ -102,10 +130,14 @@ try {
                     ':description' => $formData['formation_desc'][$index] ?? ''
                 ]);
             }
+            } catch (PDOException $e) {
+                error_log("SQL Error: " . $e->getMessage());
+            }
         }
 
         // Insertion des compétences
         if (isset($formData['competence_name']) && is_array($formData['competence_name'])) {
+            try{
             $stmtCompetence = $pdo->prepare("INSERT INTO user_competences (user_id, name, level) VALUES (:user_id, :name, :level)");
             foreach ($formData['competence_name'] as $index => $name) {
                 $stmtCompetence->execute([
@@ -113,6 +145,9 @@ try {
                     ':name' => $name,
                     ':level' => $formData['competence_level'][$index] ?? ''
                 ]);
+            }
+            } catch (PDOException $e) {
+                error_log("SQL Error: " . $e->getMessage());
             }
         }
 
@@ -149,7 +184,9 @@ try {
         echo "Aucune donnée trouvée.";
     }
 } catch (PDOException $e) {
-    echo "Erreur: " . $e->getMessage();
+   error_log("SQL Error: " . $e->getMessage());
+    // echo "Erreur de connexion à la base de données.";
+    exit();
 }
 
 ?>

@@ -23,8 +23,9 @@ if (isset($_SESSION['form_data'])) {
 $nom = $formData['Nom'] ?? $formData['nom'] ?? '';
 $prenom = $formData['Prenom'] ?? $formData['prenom'] ?? '';
 $email = $formData['Email'] ?? $formData['email'] ?? '';
-$num_tel = $formData['Tel'] ?? $formData['num_tel'] ?? '';
+$num_tel = $formData['Tel'] ?? $formData['tel'] ?? '';
 $titre = $formData['titre'] ?? '';
+$apropos = $formData['apropos'] ?? '';
 
 // Récupération des tableaux dynamiques
 $langues = $formData['langue'] ?? [];
@@ -132,20 +133,32 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 16);
 
 // Partie coordonnées (dans la colonne grise)
-$pdf->addGreySection("Coordonnées :", [
-    "Email: " . $email,
-    "Téléphone: " . $num_tel
-]);
-$pdf->addGreySection("Profil :", [
-    
-]);
+
+if(!empty($email) && !empty($num_tel)){
+    $pdf->addGreySection("Coordonnées :", [
+        "Email: " . $email,
+        "Téléphone: " . $num_tel
+    ]);
+}
+
+// if()
+if(!empty($apropos)){
+    $pdf->addGreySection("Profil :", [
+        $apropos
+    ]);
+}
+
 
 // Langues et centres d'intérêt (dans la colonne grise)
-$pdf->addGreySection("Langues :", array_map(function ($langue, $niveau) {
-    return "$langue : $niveau";
-}, $formData['langue'], $formData['niveau']));
+if (!empty($formData['langue']) && !empty($formData['niveau'])) {
+    $pdf->addGreySection("Langues :", array_map(function ($langue, $niveau) {
+        return "$langue : $niveau";
+    }, $formData['langue'], $formData['niveau']));
+}
 
-$pdf->addGreySection("Centres d'intérêt :", $formData['type_interet']);
+if (!empty($formData['type_interet'])) {
+    $pdf->addGreySection("Centres d'intérêt :", $formData['type_interet']);
+}
 
 // Déplacer le curseur après la colonne grise
 $pdf->SetY(60); // Position après la colonne grise
@@ -153,18 +166,22 @@ $pdf->SetY(60); // Position après la colonne grise
 // Ajout des formations (dans la partie blanche)
 $formations = [];
 foreach ($formData['formation_title'] as $index => $title) {
-    $formations[] = $title . " - " . $formData['formation_institution'][$index] . "            (" . $formData['formation_start'][$index] . "    /   " . $formData['formation_end'][$index] . ")";
+    $formations[] = $title . " - " . $formData['formation_institution'][$index] . "            (" . $formData['formation_start'][$index] . " / " . $formData['formation_end'][$index] . ")";
 }
-$pdf->addWhiteSection("Formations :", $formations);
+if(!empty($formations)){
+    $pdf->addWhiteSection("Formations :", $formations);
+}
+// $pdf->addWhiteSection("Formations :", $formations);
 
 // Ajout des stages avec entreprise et dates (dans la partie blanche)
 $stages = [];
 foreach ($formData['stage_title'] as $index => $title) {
-    $stages[] = $title . " - " . $formData['stage_company'][$index] . "           (" . $formData['stage_start'][$index] . "    /    " . $formData['stage_end'][$index] . ")";
+    $stages[] = $title . " - " . $formData['stage_company'][$index] . "            (" . $formData['stage_start'][$index] . " / " . $formData['stage_end'][$index] . ")";
     $stages[] = "   " . $formData['stage_desc'][$index]; // Sous-intitulé
 }
-$pdf->addWhiteSection("Expériences Professionnelles :", $stages);
-
+if(!empty($stages)){
+    $pdf->addWhiteSection("Expériences Professionnelles :", $stages);
+}
 // Ajout des compétences (dans la partie blanche)
 $competences = [];
 if (isset($_SESSION['form_data']['competence_name']) && is_array($_SESSION['form_data']['competence_name']) &&
@@ -175,7 +192,10 @@ if (isset($_SESSION['form_data']['competence_name']) && is_array($_SESSION['form
         $competences[] = "$name - Niveau: $level";
     }
 }
-$pdf->addWhiteSection("Compétences :", $competences);
+if (!empty($competences)) {
+    $pdf->addWhiteSection("Compétences :", $competences);
+}
+// $pdf->addWhiteSection("Compétences :", $competences);
 
 // Génération du PDF
 $pdfFile = 'cv.pdf';

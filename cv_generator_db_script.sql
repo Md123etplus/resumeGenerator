@@ -18,7 +18,7 @@ CREATE TABLE users (
     remarque TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
+-- alter table users add COLUMN apropos TEXT;
 CREATE TABLE user_modules (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,

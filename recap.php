@@ -64,37 +64,37 @@ $formData = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
             <tr><th>Champ</th><th>Valeur</th></tr>
             <tr>
                 <td>Nom</td>
-                <td><?= htmlspecialchars(isset($formData['Nom']) ? $formData['Nom'] : 'Non renseigné') ?></td>
+                <td><?= htmlspecialchars(isset($formData['nom']) ? $formData['nom'] : 'Non renseigné') ?></td>
             </tr>
             <tr>
                 <td>Prénom</td>
-                <td><?= htmlspecialchars(isset($formData['Prenom']) ? $formData['Prenom'] : 'Non renseigné') ?></td>
+                <td><?= htmlspecialchars(isset($formData['prenom']) ? $formData['prenom'] : 'Non renseigné') ?></td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><?= htmlspecialchars(isset($formData['Email']) ? $formData['Email'] : 'Non renseigné') ?></td>
+                <td><?= htmlspecialchars(isset($formData['email']) ? $formData['email'] : 'Non renseigné') ?></td>
             </tr>
             <tr>
                 <td>Âge</td>
-                <td><?= htmlspecialchars(isset($formData['Age']) ? $formData['Age'] : 'Non renseigné') ?></td>
+                <td><?= htmlspecialchars(isset($formData['age']) ? $formData['age'] : 'Non renseigné') ?></td>
             </tr>
             <tr>
                 <td>Numéro de téléphone</td>
-                <td><?= htmlspecialchars(isset($formData['Tel']) ? $formData['Tel'] : 'Non renseigné') ?></td>
+                <td><?= htmlspecialchars(isset($formData['tel']) ? $formData['tel'] : 'Non renseigné') ?></td>
             </tr>
             <tr>
                 <td>Filière</td>
-                <td><?= htmlspecialchars(isset($formData['Filiere']) ? $formData['Filiere'] : 'Non renseigné') ?></td>
+                <td><?= htmlspecialchars(isset($formData['filiere']) ? $formData['filiere'] : 'Non renseigné') ?></td>
             </tr>
             <tr>
                 <td>Année</td>
-                <td><?= htmlspecialchars(isset($formData['Annee']) ? $formData['Annee'] : 'Non renseigné') ?></td>
+                <td><?= htmlspecialchars(isset($formData['annee']) ? $formData['annee'] : 'Non renseigné') ?></td>
             </tr>
             <tr>
                 <td>Modules suivis</td>
                 <td>
-                    <?= isset($formData['Module']) && is_array($formData['Module'])
-                        ? implode('; ', array_map('htmlspecialchars', $formData['Module']))
+                    <?= isset($formData['module']) && is_array($formData['module'])
+                        ? implode('; ', array_map('htmlspecialchars', $formData['module']))
                         : 'Aucun module sélectionné' ?>
                 </td>
             </tr>

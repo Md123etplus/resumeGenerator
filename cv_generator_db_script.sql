@@ -24,6 +24,16 @@ CREATE TABLE user_modules (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE user_projects (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    title VARCHAR(255) NOT NULL,
+    start_date DATE,
+    end_date DATE,
+    description TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 CREATE TABLE user_stages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,

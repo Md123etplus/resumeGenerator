@@ -1,3 +1,29 @@
+//handle the action when "2AP" checked
+document.addEventListener("DOMContentLoaded", function () {
+    const filiereRadios = document.querySelectorAll('input[name="filiere"]');
+    const annee3eme = document.getElementById("3eme_annee");
+
+    function toggleAnnee() {
+        const is2APChecked = document.getElementById("2AP").checked;
+
+        if (is2APChecked) {
+            annee3eme.disabled = true;
+            annee3eme.checked = false;
+        } else {
+            annee3eme.disabled = false;
+        }
+    }
+
+    // Appliquer la règle au chargement de la page
+    toggleAnnee();
+
+    // Ajouter un écouteur sur chaque radio "Filiere"
+    filiereRadios.forEach(radio => {
+        radio.addEventListener("change", toggleAnnee);
+    });
+});
+
+//generating project form details
 document.addEventListener("DOMContentLoaded", function () {
     const projectContainer = document.querySelector(".project_container");
     const projectSelect = document.getElementById("projet");
@@ -32,6 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+
+    //generating language form details
     const languesContainer = document.querySelector(".langues_container");
     const languesSelect = document.getElementById("nb_langues");
 
@@ -64,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    //generating interest form details
     const interetsContainer = document.querySelector(".interets_container");
     const interetsSelect = document.getElementById("nb_interets");
 

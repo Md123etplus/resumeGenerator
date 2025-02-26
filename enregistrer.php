@@ -46,7 +46,16 @@ try {
                 ]);
             }
         }
-
+        //insertion de apropos
+        // if (isset($formData['apropos']) && is_array($formData['apropos'])) {
+        //     $stmtApropos = $pdo->prepare("INSERT INTO users (user_id, apropos) VALUES (:user_id, :apropos)");
+        //     foreach ($formData['apropos'] as $apropos) {
+        //         $stmtApropos->execute([
+        //             ':user_id' => $userId,
+        //             ':apropos' => $apropos
+        //         ]);
+        //     }
+        // }
         // Insertion des projets réalisés
         if (isset($formData['Titre']) && is_array($formData['Titre'])) {
             $stmtProjet = $pdo->prepare("INSERT INTO user_projects (user_id, title, start_date, end_date, description) 

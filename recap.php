@@ -139,6 +139,13 @@ $formData = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
                     <?php endif; ?>
                 </td>
             </tr>
+            <tr>
+                <td>A propos de moi:</td>
+                <td>
+                    <?= htmlspecialchars(isset($formData['apropos']) ? $formData['apropos'] : 'Non renseigné') ?>
+
+                </td>
+            </tr>
 
         </table>
     </fieldset>
@@ -229,6 +236,15 @@ $formData = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
     <form action="enregistrer.php" method="post" style="display: inline;">
         <button type="submit">Valider</button>
     </form>
+
+<!-- <script>
+    // Prefill form data
+    var prefilledStages = <?= json_encode($formData['stages'] ?? []) ?>;
+    var prefilledFormations = <?= json_encode($formData['formations'] ?? []) ?>;
+    var prefilledCompetences = <?= json_encode($formData['competences'] ?? []) ?>;
+    var prefilledLangues = <?= json_encode($formData['langues'] ?? []) ?>;
+    var prefilledInterets = <?= json_encode($formData['interets'] ?? []) ?>;
+</script> -->
 
 </body>
 </html>

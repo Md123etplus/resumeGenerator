@@ -1,3 +1,4 @@
+-- drop database cv_generator_db;
 CREATE DATABASE cv_generator_db;
 USE cv_generator_db;
 
@@ -6,6 +7,7 @@ CREATE TABLE users (
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
+    apropos TEXT,
     age INT CHECK (age > 0),
     tel VARCHAR(20),
     filiere VARCHAR(255),

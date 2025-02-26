@@ -106,7 +106,7 @@
                     </span>
                     <span>
                         <label for="age">Âge:</label><br>
-                        <input type="number" id="age" name="age" value="<?= isset($formData['age']) ? htmlspecialchars($formData['age']) : '' ?>" >
+                        <input type="number" id="age" name="age" value="<?= isset($formData['age']) ? htmlspecialchars($formData['age']) : '' ?>" required>
                     </span>
                     <span>
                         <label for="tel">Téléphone:</label><br>

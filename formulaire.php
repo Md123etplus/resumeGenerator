@@ -1,6 +1,6 @@
 <?php
     session_start();
-    print_r($_SESSION['form_data']);
+    // print_r($_SESSION['form_data']);
     $formData = [];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $formData = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
